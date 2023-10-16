@@ -3,14 +3,15 @@ import "./profilerightbar.css"
 import axios from 'axios'
 import Follow from '../RightsideContainer/Follow'
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 export default function ProfileRightbar() {
   const [Followinguser, setFollowinguser] = useState([]);
   const userDetails = useSelector((state)=>state.user);
   let user = userDetails?.user
-  console.log(user);
-  let id = user?.other?._id;
-  console.log(id);
+  let location = useLocation();
+    let id = location.pathname.split("/")[2];
+    let idForSuggest = user?.others?._id;
 
     useEffect(() => {
         const getFollowing = async() =>{
@@ -30,7 +31,7 @@ export default function ProfileRightbar() {
     useEffect(() => {
       const getuser = async()=>{
           try {
-              const res = await axios.get(`http://localhost:5000/api/user/all/user/${id}`)
+              const res = await axios.get(`http://localhost:5000/api/user/all/user/${idForSuggest}`)
               setUsers(res.data)
           } catch (error) {
               console.log("Some error occured");

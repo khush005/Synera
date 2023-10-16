@@ -5,14 +5,19 @@ import image1 from "../Images/image1.jpg"
 
 import axios from 'axios'
 import Follow from './Follow'
+import { useSelector } from 'react-redux'
 
 export default function Rightbar() {
+  const userDetails = useSelector((state)=>state.user);
+  let user = userDetails.user;
+  const id = user.other._id;
+
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const getuser = async()=>{
         try {
-            const res = await axios.get(`http://localhost:5000/api/user/all/user/6517c2b9e063043f8fbf4d7b`)
+            const res = await axios.get(`http://localhost:5000/api/user/all/user/${id}`)
             setUsers(res.data)
         } catch (error) {
             console.log("Some error occured");

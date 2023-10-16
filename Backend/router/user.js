@@ -102,7 +102,9 @@ router.put("/following/:id", verifyToken, async(req,res)=>{
             return res.status(200).json("User has followed")
         }
         else{
-            return res.status(400).json("You already follow this user")
+            await user.updateOne({$pull: {Followers: req.body.user}})
+            await otheruser.updateOne({$pull: {Following: req.params.id}})
+            return res.status(200).json("User has Unfollowed")
         }
     }
     else{
@@ -176,7 +178,7 @@ router.get("/post/user/details/:id", async(req, res)=>{
         if(!user){
             return res.status(400).json("User not found")
         }
-        const { email, password, phonenumber, Followers, Following, ...others } = user._doc;
+        const { email, password, phonenumber, ...others } = user._doc;
         res.status(200).json(others);
     } catch (error) {
         return res.status(500).json("Internal server error")

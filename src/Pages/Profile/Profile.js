@@ -4,8 +4,12 @@ import Navbar from '../../Component/Navbar/Navbar'
 import ProfileLeftbar from '../../Component/ProfileLeftsideContainer/ProfileLeftbar'
 import ProfileRightbar from '../../Component/ProfileRightsideContainer/ProfileRightbar'
 import ProfileMainPost from '../../Component/ProfileMainPostContainer/ProfileMainPost'
+import { useSelector } from 'react-redux'
 
 export default function Profile() {
+  const userDetails = useSelector((state)=>state.user);
+  let user = userDetails.user;
+  
   return (
     <div className='ProfileContainer'>
       <Navbar/>

@@ -7,9 +7,13 @@ import CommentIcon from "../Images/speech-bubble.png"
 import ShareIcon from "../Images/share.png"
 import MoreOption from "../Images/more.png"
 import anotherLikeIcon from "../Images/setLike.png"
+import { useSelector } from 'react-redux'
 // import { getImageUrl } from '../../utils/util'
 
 export default function Post({post}) {
+    const userDetails = useSelector((state)=>state.user);
+    let users = userDetails?.user;
+  
     const [user, setUser] = useState([]);
     
     useEffect(() => {
@@ -24,35 +28,38 @@ export default function Post({post}) {
         getuser();
     }, [])
     
-    const userId = "6517c2b9e063043f8fbf4d7b"
-    const accesstoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MTdjMmI5ZTA2MzA0M2Y4ZmJmNGQ3YiIsInVzZXJuYW1lIjoiS2h1c2hib28iLCJpYXQiOjE2OTcxOTY5MDB9.WFrCIckIhbXs3Ab3KMvav67JSVuaDLKohEwZ9AFvc-Y";
-    const [Like, setLike] = useState([post.like.includes(userId) ? anotherLikeIcon : likeIcon])
+    const userId = users.other._id;
+    // const accesstoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MTdjMmI5ZTA2MzA0M2Y4ZmJmNGQ3YiIsInVzZXJuYW1lIjoiS2h1c2hib28iLCJpYXQiOjE2OTcxOTY5MDB9.WFrCIckIhbXs3Ab3KMvav67JSVuaDLKohEwZ9AFvc-Y";
+    const accessToken = users.accessToken;
+    const [Like, setLike] = useState([post.like.includes(userId) ? anotherLikeIcon : likeIcon]);
     const [count, setCount] = useState(post.like.length);
-    const [Comments, setComments] = useState([])
+    const [Comments, setComments] = useState(post.comments);
     const [commentWriting, setCommentWriting ] = useState("")
     const [show, setShow] = useState(false)
     // console.log(post);
 
     const handleLike = async() =>{
         if(Like == likeIcon){
-            await fetch(`http://localhost:5000/api/post/6518077/${post._id}/like`, {method:"PUT", headers:{'Content-Type':"application/Json", token:accesstoken}})
+            await fetch(`http://localhost:5000/api/post/6518077/${post._id}/like`, {method:"PUT", headers:{'Content-Type':"application/Json", token:accessToken}})
             setLike(anotherLikeIcon)
             setCount(count+1)
         }
         else {
-            await fetch(`http://localhost:5000/api/post/6518077/${post._id}/like`, {method:"PUT", headers:{'Content-Type':"application/Json", token:accesstoken}})
+            await fetch(`http://localhost:5000/api/post/6518077/${post._id}/like`, {method:"PUT", headers:{'Content-Type':"application/Json", token:accessToken}})
             setLike(likeIcon)
             setCount(count-1)
         }
     }
 
-    const addComment = () =>{
+    const addComment = async() =>{
         const comment = {
-            "id": "61kmdfg123456789",
-            "username": "Khushboo",
-            "title": `${commentWriting}`
+            "postid": `${post._id}`,
+            "username": `${users.other.username}`,
+            "comment": `${commentWriting}`,
+            "profile": `${users.other?.profile}`
         }
-        setComments(Comments.concat(comment))
+        await fetch(`http://localhost:5000/api/post/comment/post`, {method:"PUT", headers:{'Content-Type':"application/Json", token:accessToken}, body:JSON.stringify(comment)})
+        setComments(Comments.concat(comment));
     }
 
     const handleComment = () =>{
@@ -88,7 +95,12 @@ export default function Post({post}) {
 
                 
                 <p style={{textAlign:'start', width:'90%', marginLeft:10, marginTop:0}}>{post.title}</p>
-                <img src={`${post.image}`} className='PostImages' alt={post.user} onError={() => console.log('Image failed to load')}/>
+                {/* <img src={`${post.image}`} className='PostImages' alt={post.user} onError={() => console.log('Image failed to load')}/> */}
+                {post.image !== '' ? 
+                    <img src={`${post.image}`} className="PostImages" alt="" />: post.video !== '' ? <video className="PostImages" width="500" height="500" controls >
+                    <source src={`${post.video}`} type="video/mp4"/>
+                    </video> : ''
+                }
                 {/* <li key={post._id}> */}
                 {/* <img src={getImageUrl(post)} className='PostImages' alt={post.user} /> */}
                 {/* </li> */}
@@ -103,7 +115,7 @@ export default function Post({post}) {
 
                         <div style={{display:'flex', alignItems:'center', marginLeft:20, cursor:'pointer'}}>
                             <img src={`${CommentIcon}`} className='iconsforPost' onClick={handleShow} alt="" />
-                            <p style={{marginLeft:'6px'}}>{post.comments.length} Comments</p>
+                            <p style={{marginLeft:'6px'}}>{Comments.length} Comments</p>
                         </div>
                     </div>
 
@@ -116,7 +128,7 @@ export default function Post({post}) {
                 {show === true ?
                 <div style={{padding:'10px'}}>
                     <div style={{display:'flex', alignItems:'center'}}>
-                        <img src={`${ProfileImage}`} className='PostImage' alt="" />
+                        <img src={`${users.other.profile}`} className='PostImage' alt="" />
                         {/* <p style={{marginLeft:'6px'}}>Khushboo</p> */}
                         <input type="text" className='commentinput' placeholder='Write your thought' onChange={(e)=>setCommentWriting(e.target.value)} />
                         <button className='addCommentbtn' onClick={handleComment}>Post</button>
@@ -125,10 +137,10 @@ export default function Post({post}) {
                     {Comments.map((item)=>(
                         <div style={{alignItems:'center'}}>
                             <div style={{display:'flex', alignItems:'center'}}>
-                                <img src={`${ProfileImage}`} className='PostImage' alt="" />
+                                <img src={`${item.profile}`} className='PostImage' alt="" />
                                 <p style={{marginLeft:'6px', fontSize:20, marginTop:6}}>{item.username}</p>
                             </div>
-                        <p style={{marginLeft:'55px', textAlign:'start', marginTop:-16}}>{item.title}</p>
+                        <p style={{marginLeft:'55px', textAlign:'start', marginTop:-16}}>{item.comment}</p>
                         <p style={{marginLeft:'55px', textAlign:'start', marginTop:-10, color:"#aaa", fontSize:11}}>Reply</p>
                     </div>
                     ))}

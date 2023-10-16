@@ -8,20 +8,19 @@ import image3 from "../Images/image3.jpg"
 import image4 from "../Images/image4.jpg"
 import image5 from "../Images/image5.jpg"
 import image6 from "../Images/image6.jpg"
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 
 export default function Leftbar() {
     const userDetails = useSelector((state)=>state.user);
-  let user = userDetails?.user
-  console.log(user);
-  let id = user?.other?._id;
-  const dispatch = useDispatch();
+    let user = userDetails.user;
+    console.log(user);
+    let id = user?.other?._id;
 
-    const accesstoken = user.accesstoken;
+    const accesstoken = user.accessToken;
     console.log(accesstoken);
-  const [post, setPost] = useState([])
-  
+    const [post , setPost] = useState([]);
+
   useEffect(() => {
     const getPost = async() => {
       try {

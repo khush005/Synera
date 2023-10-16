@@ -12,6 +12,7 @@ export default function Navbar() {
   const userDetails = useSelector((state)=>state.user);
   let user = userDetails?.user
   console.log(user);
+
   let id = user?.other?._id;
   const dispatch = useDispatch();
   
@@ -36,8 +37,8 @@ export default function Navbar() {
 
         <Link to={`/Profile/${id}`}>
         <div style={{display: 'flex', alignItems: 'center'}}>
-            <img src={`${Profile}`} className='ProfileImage' alt="" />
-            <p style={{marginLeft: '5px'}}>Khushboo</p>
+            <img src={`${user?.other?.profile}`} className='ProfileImage' alt="" />
+            <p style={{marginLeft: '5px'}}>{user?.other?.username}</p>
         </div>
         </Link>
 
