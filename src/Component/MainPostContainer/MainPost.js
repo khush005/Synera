@@ -5,7 +5,7 @@ import Post from "../PostContainer/Post"
 import axios from 'axios'
 
 export default function MainPost() {
-  const accesstoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MTdjMmI5ZTA2MzA0M2Y4ZmJmNGQ3YiIsInVzZXJuYW1lIjoiS2h1c2hib28iLCJpYXQiOjE2OTY5NTk1ODR9.w8-vsgFKQzQTFYH5Pjwg0gZsaG0ux5I1MWevmzMkWz8";
+  const accesstoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MTdjMmI5ZTA2MzA0M2Y4ZmJmNGQ3YiIsInVzZXJuYW1lIjoiS2h1c2hib28iLCJpYXQiOjE2OTcxOTY5MDB9.WFrCIckIhbXs3Ab3KMvav67JSVuaDLKohEwZ9AFvc-Y"
   const [post, setPost] = useState([])
   
   useEffect(() => {

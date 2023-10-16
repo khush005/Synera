@@ -1,35 +1,53 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import "./profileleftbar.css"
 import image from "../Images/Profile.png"
-import image1 from "../Images/image1.jpg"
-import image2 from "../Images/image2.jpg"
-import image3 from "../Images/image3.jpg"
-import image4 from "../Images/image4.jpg"
-import image5 from "../Images/image5.jpg"
-import image6 from "../Images/image6.jpg"
-
+import axios from 'axios'
+import { useSelector } from 'react-redux';
 
 export default function ProfileLeftbar() {
+    const userDetails = useSelector((state)=>state.user);
+    let user = userDetails.user;
+    console.log(user);
+    const id = user.other._id;
+    let username = user.other.username;
+    let followersCounter = user.other.Followers.length;
+    let followingCounter = user.other.Following.length;
+  
+    const [Followinguser, setFollowinguser] = useState([]); 
+
+    useEffect(() => {
+        const getFollowing = async() =>{
+            try {
+                const res = await axios.get(`http://localhost:5000/api/post/following/${id}`);
+                setFollowinguser(res.data)
+            } catch (error) {
+                console.log("Error");
+            }
+        }
+        getFollowing();
+    }, [])
+    console.log(Followinguser);
+
   return (
     <div className='ProfileLeftbar'>
         <div className='NotificationsContainer'>
             <img src={`${image}`} className='ProfilePageCover' alt="" />
             <div style={{display:'flex', alignItems:'center', marginTop:-30}}>
-                <img src={`${image}`} className='ProfilePageImage' alt="" />
+                <img src={`${user.other.profile}`} className='ProfilePageImage' alt="" />
                 <div>
-                    <p style={{marginLeft:6, marginTop:20, color:'black', textAlign:'start'}}>Khushboo</p>
+                    <p style={{marginLeft:6, marginTop:20, color:'black', textAlign:'start'}}>{username}</p>
                     <p style={{marginLeft:6, marginTop:20, color:'black', textAlign:'start', marginTop:-16, fontSize:11 }}>Software Developer</p>
                 </div>
             </div>
 
             <div style={{display:'flex', justifyContent:'space-between'}}>
-                <p style={{color:'black', marginLeft:20, fontSize:'14px'}}>Profile View</p>
-                <p style={{color:'black', marginRight:20, fontSize:'12px', marginTop:17}}>50000</p>
+                <p style={{color:'black', marginLeft:20, fontSize:'14px'}}>Followings</p>
+                <p style={{color:'black', marginRight:20, fontSize:'12px', marginTop:17}}>{followingCounter}</p>
             </div>
 
             <div style={{display:'flex', justifyContent:'space-between',  marginTop:-20}}>
                 <p style={{color:'black', marginLeft:20, fontSize:'14px'}}>Followers</p>
-                <p style={{color:'black', marginRight:20, fontSize:'12px', marginTop:17}}>500</p>
+                <p style={{color:'black', marginRight:20, fontSize:'12px', marginTop:17}}>{followersCounter}</p>
             </div>
 
             <div style={{marginTop:-20}}>
@@ -48,35 +66,14 @@ export default function ProfileLeftbar() {
             </div>
 
             <div style={{display:'flex', flexWrap:'wrap', marginLeft:5}}>
-                <div style={{marginLeft:4, cursor:"pointer"}}>
-                    <img src={`${image2}`} className='friendimage' alt="" />
-                    <p style={{marginTop:-2}}>Samridhi</p>
-                </div>
+                {Followinguser.map((item)=>(
+                    <div style={{marginLeft:4, cursor:"pointer"}}>
+                        <img src={`${item.profile}`} className='friendimage' alt="" key={item._id}/>
+                        <p style={{marginTop:-2}}>{item.username}</p>
+                    </div>
+                ))}
 
-                <div style={{marginLeft:4, cursor:"pointer"}}>
-                    <img src={`${image3}`} className='friendimage' alt="" />
-                    <p style={{marginTop:-2}}>Elon</p>
-                </div>
-
-                <div style={{marginLeft:4, cursor:"pointer"}}>
-                    <img src={`${image4}`} className='friendimage' alt="" />
-                    <p style={{marginTop:-2}}>Camille</p>
-                </div>
-
-                <div style={{marginLeft:4, cursor:"pointer"}}>
-                    <img src={`${image4}`} className='friendimage' alt="" />
-                    <p style={{marginTop:-2}}>Samridhi</p>
-                </div>
-
-                <div style={{marginLeft:4, cursor:"pointer"}}>
-                    <img src={`${image3}`} className='friendimage' alt="" />
-                    <p style={{marginTop:-2}}>Elon</p>
-                </div>
-
-                <div style={{marginLeft:4, cursor:"pointer"}}>
-                    <img src={`${image2}`} className='friendimage' alt="" />
-                    <p style={{marginTop:-2}}>Camille</p>
-                </div>
+                
             </div>
         </div>
     </div>

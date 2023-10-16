@@ -122,7 +122,7 @@ router.get("/flw/:id", verifyToken, async(req,res) => {
         )
         return res.status(200).json(followersPost)
     } catch (error) {
-        return res.status(500).json(erro);
+        return res.status(500).json(error);
     }
 })
 
@@ -177,12 +177,41 @@ router.get("/post/user/details/:id", async(req, res)=>{
             return res.status(400).json("User not found")
         }
         const { email, password, phonenumber, Followers, Following, ...others } = user._doc;
-        return res.status(200).json(others);
+        res.status(200).json(others);
     } catch (error) {
-        // return res.status(500).json("Internal server error")
-        console.log(others);
+        return res.status(500).json("Internal server error")
+        // console.log(others);
     }
 })
 
+
+
+// GET USER TO FOLLOW
+router.get("/all/user/:id", async(req,res)=>{
+    try {
+        const allUser = await User.find();
+        const user = await User.findById(req.params.id);
+        const followinguser = await Promise.all(
+            user.Following.map((item)=>{
+                return item;
+            })
+        )
+        let UserToFollow = allUser.filter((val)=>{
+            return !followinguser.find((item)=>{
+                return val._id.toString()===item;
+            })
+        })
+
+        let filteruser = await Promise.all(
+            UserToFollow.map((item)=>{
+                const {email, phonenumber, Followers, Following, password, ...others} = item._doc;
+                return others;
+            })
+        )
+        res.status(200).json(filteruser);
+    } catch (error) {
+        
+    }
+})
 
 module.exports = router;

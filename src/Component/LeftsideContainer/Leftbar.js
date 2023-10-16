@@ -8,31 +8,37 @@ import image3 from "../Images/image3.jpg"
 import image4 from "../Images/image4.jpg"
 import image5 from "../Images/image5.jpg"
 import image6 from "../Images/image6.jpg"
+import { useDispatch, useSelector } from 'react-redux'
 
 
 export default function Leftbar() {
-    const accesstoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MTdjMmI5ZTA2MzA0M2Y4ZmJmNGQ3YiIsInVzZXJuYW1lIjoiS2h1c2hib28iLCJpYXQiOjE2OTY5NDc1Njd9.uyC2lUmQ9ASHjfsqqAvBGsSInpfyW-nwOTSVcsov630";
-    const [post, setPost] = useState([])
-    
-    useEffect(() => {
-      const getPost = async() => {
-        try {
-          const res = await axios.get(`http://localhost:5000/api/user/flw/6517c2b9e063043f8fbf4d7b`, {
-            headers: {
-              token: accesstoken
-            }
-          })
-          setPost(res.data);
-        } catch (error) {
-          
-        }
-      }
-      getPost();
-    }, [])
-  
-    console.log(post);
-  
+    const userDetails = useSelector((state)=>state.user);
+  let user = userDetails?.user
+  console.log(user);
+  let id = user?.other?._id;
+  const dispatch = useDispatch();
 
+    const accesstoken = user.accesstoken;
+    console.log(accesstoken);
+  const [post, setPost] = useState([])
+  
+  useEffect(() => {
+    const getPost = async() => {
+      try {
+        const res = await axios.get(`http://localhost:5000/api/user/flw/${id}`, {
+          headers: {
+            token: accesstoken
+          }
+        })
+        setPost(res.data);
+      } catch (error) {
+        
+      }
+    }
+    getPost();
+  }, [])
+
+  console.log(post);
 
   return (
     <div className='Leftbar'>
@@ -97,14 +103,7 @@ export default function Leftbar() {
                         <img src={`${image.image}`} className='exploreimage' alt="" />
                     ))
                 ))}
-                <img src={`${image1}`} className='exploreimage' alt="" />
-                <img src={`${image2}`} className='exploreimage' alt="" />
-                <img src={`${image3}`} className='exploreimage' alt="" />
-                <img src={`${image4}`} className='exploreimage' alt="" />
-                <img src={`${image5}`} className='exploreimage' alt="" />
-                <img src={`${image6}`} className='exploreimage' alt="" />
-                {/* <img src={`${image3}`} className='exploreimage' alt="" /> */}
-                {/* <img src={`${image4}`} className='exploreimage' alt="" /> */}
+                
             </div>
         </div>
     </div>
