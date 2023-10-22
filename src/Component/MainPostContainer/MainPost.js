@@ -7,13 +7,13 @@ import { useSelector } from 'react-redux'
 
 export default function MainPost() {
   const userDetails = useSelector((state)=>state.user);
-    let user = userDetails?.user
+    let user = userDetails.user
     console.log(user);
     let id = user?.other?._id;
     // const dispatch = useDispatch();
 
-    const accesstoken = user.accessToken;
-    console.log(accesstoken);
+    const accessToken = user?.accessToken;
+    console.log(accessToken);
   // const accesstoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MTdjMmI5ZTA2MzA0M2Y4ZmJmNGQ3YiIsInVzZXJuYW1lIjoiS2h1c2hib28iLCJpYXQiOjE2OTcxOTY5MDB9.WFrCIckIhbXs3Ab3KMvav67JSVuaDLKohEwZ9AFvc-Y"
   const [post, setPost] = useState([])
   
@@ -22,7 +22,7 @@ export default function MainPost() {
       try {
         const res = await axios.get(`http://localhost:5000/api/user/flw/${id}`, {
           headers: {
-            token: accesstoken
+            token: accessToken
           }
         })
         setPost(res.data);
@@ -40,9 +40,7 @@ export default function MainPost() {
     <div className='mainPostContainer'>
       <ContentPost/>
       {post.map((item)=>(
-        item.map((postdetails)=>(
-          <Post post={postdetails} />
-        ))
+        <Post post={item} />
       ))}
       
     </div>

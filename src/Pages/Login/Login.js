@@ -9,6 +9,7 @@ export default function Login() {
   const {isFetching  , error} = useSelector((state)=>state.user);
   const [email , setemail]= useState('');
   const [password , setPassword] = useState('');
+
   const handleClick = (e)=>{
     e.preventDefault();
     login(dispatch ,{email , password});
@@ -24,13 +25,13 @@ export default function Login() {
         </div>
         <div style={{flex:3}}>
             <p className='createAccountText'>Login account</p>
-            <input type="email" name='' id='email' placeholder='email' onChange={(e) => setemail(e.target.value)} className='inputText'/>
+            <input type="email" name='' id='email' placeholder='Email' onChange={(e) => setemail(e.target.value)} className='inputText'/>
             <input type="password" placeholder='******' name='' onChange={(e) => setPassword(e.target.value)} id='password' className='inputText'/>
             <button className='btnforsignup' onClick={handleClick}>Login</button>
-            <Link to={"/"}>
+            <Link to={"/forgot/password"}>
                 <p style={{textAlign:'start', marginLeft:"30.6%"}}>Forgot Password?</p>
             </Link>
-            <Link to={"/"}>
+            <Link to={"/signup"}>
                 <p style={{textAlign:'start', marginLeft:"30.6%"}}>Create new account</p>
             </Link>
         </div>

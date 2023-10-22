@@ -32,7 +32,7 @@ export default function ProfileMainPost() {
       </div>
       <ContentPost/>
       {post.map((item)=>(
-        <Post detail={item} />
+        <Post key={item._id} detail={item} />
       ))}
     </div>
   )

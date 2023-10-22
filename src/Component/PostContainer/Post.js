@@ -28,24 +28,24 @@ export default function Post({post}) {
         getuser();
     }, [])
     
-    const userId = users.other._id;
+    const userId = users?.other?._id;
     // const accesstoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MTdjMmI5ZTA2MzA0M2Y4ZmJmNGQ3YiIsInVzZXJuYW1lIjoiS2h1c2hib28iLCJpYXQiOjE2OTcxOTY5MDB9.WFrCIckIhbXs3Ab3KMvav67JSVuaDLKohEwZ9AFvc-Y";
-    const accessToken = users.accessToken;
+    const accessToken = users?.accessToken;
     const [Like, setLike] = useState([post.like.includes(userId) ? anotherLikeIcon : likeIcon]);
     const [count, setCount] = useState(post.like.length);
     const [Comments, setComments] = useState(post.comments);
-    const [commentWriting, setCommentWriting ] = useState("")
+    const [commentWriting, setCommentWriting ] = useState('')
     const [show, setShow] = useState(false)
     // console.log(post);
 
     const handleLike = async() =>{
         if(Like == likeIcon){
-            await fetch(`http://localhost:5000/api/post/6518077/${post._id}/like`, {method:"PUT", headers:{'Content-Type':"application/Json", token:accessToken}})
+            await fetch(`http://localhost:5000/api/post/${post._id}/like`, {method:"PUT", headers:{'Content-Type':"application/Json", token:accessToken}})
             setLike(anotherLikeIcon)
             setCount(count+1)
         }
         else {
-            await fetch(`http://localhost:5000/api/post/6518077/${post._id}/like`, {method:"PUT", headers:{'Content-Type':"application/Json", token:accessToken}})
+            await fetch(`http://localhost:5000/api/post/${post._id}/like`, {method:"PUT", headers:{'Content-Type':"application/Json", token:accessToken}})
             setLike(likeIcon)
             setCount(count-1)
         }
@@ -95,15 +95,10 @@ export default function Post({post}) {
 
                 
                 <p style={{textAlign:'start', width:'90%', marginLeft:10, marginTop:0}}>{post.title}</p>
-                {/* <img src={`${post.image}`} className='PostImages' alt={post.user} onError={() => console.log('Image failed to load')}/> */}
-                {post.image !== '' ? 
-                    <img src={`${post.image}`} className="PostImages" alt="" />: post.video !== '' ? <video className="PostImages" width="500" height="500" controls >
+                {post.image !== ''?
+                <img src={`${post.image}`} className='PostImages' alt='' />: post.video !== '' ? <video className='PostImages' width="500" height="500" controls >
                     <source src={`${post.video}`} type="video/mp4"/>
-                    </video> : ''
-                }
-                {/* <li key={post._id}> */}
-                {/* <img src={getImageUrl(post)} className='PostImages' alt={post.user} /> */}
-                {/* </li> */}
+                </video> : '' }
 
                 <div style={{display:'flex'}}>
                     <div style={{display:'flex', marginLeft:"10px"}}>
@@ -137,7 +132,9 @@ export default function Post({post}) {
                     {Comments.map((item)=>(
                         <div style={{alignItems:'center'}}>
                             <div style={{display:'flex', alignItems:'center'}}>
-                                <img src={`${item.profile}`} className='PostImage' alt="" />
+                                {item.profile === '' ? 
+                                    <img src={`https://images.pexels.com/photos/1126993/pexels-photo-1126993.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`} className="PostImage" alt="" /> : <img src={`${item.profile}`} className='PostImage' alt="" />
+                                }
                                 <p style={{marginLeft:'6px', fontSize:20, marginTop:6}}>{item.username}</p>
                             </div>
                         <p style={{marginLeft:'55px', textAlign:'start', marginTop:-16}}>{item.comment}</p>

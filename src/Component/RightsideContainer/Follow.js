@@ -12,7 +12,7 @@ export default function Follow({userdetails}) {
   console.log(id);  
   
   // const accesstoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MTdjMmI5ZTA2MzA0M2Y4ZmJmNGQ3YiIsInVzZXJuYW1lIjoiS2h1c2hib28iLCJpYXQiOjE2OTcxOTY5MDB9.WFrCIckIhbXs3Ab3KMvav67JSVuaDLKohEwZ9AFvc-Y"
-  const accessToken = user?.other?.accessToken;
+  const accessToken = user?.accessToken;
   console.log(accessToken);
   const [Follow, setFollow] = useState(addFriends);
     const handleFollow = async(e) => {

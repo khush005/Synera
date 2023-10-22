@@ -7,7 +7,6 @@ import CommentIcon from "../Images/speech-bubble.png"
 import ShareIcon from "../Images/share.png"
 import MoreOption from "../Images/more.png"
 import anotherLikeIcon from "../Images/setLike.png"
-// import { getImageUrl } from '../../utils/util'
 
 export default function Post({detail}) {
     console.log(detail);
@@ -68,6 +67,7 @@ export default function Post({detail}) {
             setShow(false)
         }
     }
+    console.log(detail.like.length);
     // console.log(user);
 
   return (
@@ -88,10 +88,7 @@ export default function Post({detail}) {
                 
                 <p style={{textAlign:'start', width:'90%', marginLeft:10, marginTop:0}}>{detail.title}</p>
                 <img src={`${detail.image}`} className='PostImages' alt="" onError={() => console.log('Image failed to load')}/>
-                {/* <li key={post._id}> */}
-                {/* <img src={getImageUrl(post)} className='PostImages' alt={post.user} /> */}
-                {/* </li> */}
-
+               
                 <div style={{display:'flex'}}>
                     <div style={{display:'flex', marginLeft:"10px"}}>
 

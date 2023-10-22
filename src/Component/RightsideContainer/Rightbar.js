@@ -9,8 +9,8 @@ import { useSelector } from 'react-redux'
 
 export default function Rightbar() {
   const userDetails = useSelector((state)=>state.user);
-  let user = userDetails.user;
-  const id = user.other._id;
+  let user = userDetails?.user;
+  const id = user?.other?._id;
 
   const [users, setUsers] = useState([]);
 

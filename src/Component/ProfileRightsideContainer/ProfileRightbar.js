@@ -6,12 +6,12 @@ import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
 export default function ProfileRightbar() {
-  const [Followinguser, setFollowinguser] = useState([]);
   const userDetails = useSelector((state)=>state.user);
   let user = userDetails?.user
   let location = useLocation();
-    let id = location.pathname.split("/")[2];
-    let idForSuggest = user?.others?._id;
+  let id = location.pathname.split("/")[2];
+  let idForSuggest = user?.others?._id;
+  const [Followinguser, setFollowinguser] = useState([]);
 
     useEffect(() => {
         const getFollowing = async() =>{
@@ -48,22 +48,20 @@ export default function ProfileRightbar() {
             <h3>Followers</h3>
             <div>
               {Followinguser.map((item)=>(
-              <div style={{marginTop:"10px"}}>
+              <div key={item._id} style={{marginTop:"10px"}}>
                 <div style={{display:'flex', alignItems:'center', marginLeft:10, cursor:'pointer'}}>
                   <img src={`${item.profile}`} className='Friendsimage' alt="" />
                   <p style={{textAlign:'start', marginLeft:"10px"}}>{item.username}</p>
                 </div>
               </div>
-              ))}
-
-              
+              ))}              
             </div>
         </div>
 
         <div className="Rightcontainer2">
           <h3 style={{textAlign:'start', marginLeft:'10px'}}>Suggested for you</h3>
           {users.map((item)=>(
-            <Follow userdetails={item} />
+            <Follow key={item._id} userdetails={item} />
           ))}
         </div>
     </div>

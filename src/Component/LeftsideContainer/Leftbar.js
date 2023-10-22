@@ -10,15 +10,14 @@ import image5 from "../Images/image5.jpg"
 import image6 from "../Images/image6.jpg"
 import { useSelector } from 'react-redux'
 
-
 export default function Leftbar() {
     const userDetails = useSelector((state)=>state.user);
     let user = userDetails.user;
     console.log(user);
     let id = user?.other?._id;
-
-    const accesstoken = user.accessToken;
-    console.log(accesstoken);
+      
+    const accessToken = user?.accessToken;
+    console.log(accessToken);
     const [post , setPost] = useState([]);
 
   useEffect(() => {
@@ -26,7 +25,7 @@ export default function Leftbar() {
       try {
         const res = await axios.get(`http://localhost:5000/api/user/flw/${id}`, {
           headers: {
-            token: accesstoken
+            token: accessToken
           }
         })
         setPost(res.data);
@@ -36,6 +35,7 @@ export default function Leftbar() {
     }
     getPost();
   }, [])
+//   }, [id, accessToken])
 
   console.log(post);
 
@@ -98,9 +98,9 @@ export default function Leftbar() {
 
             <div>
                 {post.map((item)=>(
-                    item.map((image)=>(
-                        <img src={`${image.image}`} className='exploreimage' alt="" />
-                    ))
+                    [item.image === '' ? '' :
+                        <img src={`${item.image}`} className='exploreimage' alt="" />
+                    ]
                 ))}
                 
             </div>

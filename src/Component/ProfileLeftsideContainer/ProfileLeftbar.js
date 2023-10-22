@@ -35,10 +35,10 @@ export default function ProfileLeftbar() {
     console.log(users);
     
     
+    let followersCounter = users?.Followers?.length;
+    let followingCounter = users?.Following?.length;
     const [Followinguser, setFollowinguser] = useState([]); 
-    let followersCounter = user?.Followers?.length;
-    let followingCounter = user?.Following?.length;
-
+    
     useEffect(() => {
         const getFollowing = async() =>{
             try {
@@ -54,14 +54,15 @@ export default function ProfileLeftbar() {
 
     const handleFollow = async() => {
         if(Follow === "Follow"){
-            await fetch(`http://localhost:5000/api/user/following/${id}`, {method: 'PUT', headers: {'Content-Type':"application/JSON", token: accessToken }, body:JSON.stringify({user:`${user.other._id}`})})
+            await fetch(`http://localhost:5000/api/user/following/${id}`, {method: 'PUT', headers: {'Content-Type':"application/JSON", token: accessToken }, body:JSON.stringify({user:`${user.other._id}`}) });
             setUnFollow("UnFollow")
         }
         else{
-            await fetch(`http://localhost:5000/api/user/following/${id}`, {method: 'PUT', headers: {'Content-Type':"application/JSON", token: accessToken }, body:JSON.stringify({user:`${user.other._id}`})})
+            await fetch(`http://localhost:5000/api/user/following/${id}`, {method: 'PUT', headers: {'Content-Type':"application/JSON", token: accessToken }, body:JSON.stringify({user:`${user.other._id}`}) });
             setUnFollow("Follow")
         }
     }
+    console.log(Followinguser);
 
   return (
     <div className='ProfileLeftbar'>
@@ -102,7 +103,7 @@ export default function ProfileLeftbar() {
 
             <div style={{display:'flex', flexWrap:'wrap', marginLeft:5}}>
                 {Followinguser.map((item)=>(
-                    <Link to={`Profile/${item._id}`}>
+                    <Link key={item._id} to={`Profile/${item._id}`}>
                     <div style={{marginLeft:4, cursor:"pointer"}} key={item._id}>
                         <img src={`${item.profile}`} className='friendimage' alt=""/>
                         <p style={{marginTop:-2}}>{item.username}</p>

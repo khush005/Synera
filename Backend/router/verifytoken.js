@@ -1,11 +1,11 @@
 const jwt = require("jsonwebtoken")
-const JWTSECRET = "2522#KMSA"
+const JWTSEC = "2522#KMSA"
 
 const verifyToken = (req, res, next)=>{
     const authHeader = req.headers.token;
     if(authHeader){
         const token = authHeader;
-        jwt.verify(token, JWTSECRET, (err, user) => {
+        jwt.verify(token, JWTSEC, (err, user) => {
             if(err) return res.status(400).json("Some error occured")
             req.user = user;
             next();
