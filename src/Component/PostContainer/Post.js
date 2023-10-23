@@ -7,8 +7,9 @@ import CommentIcon from "../Images/speech-bubble.png"
 import ShareIcon from "../Images/share.png"
 import MoreOption from "../Images/more.png"
 import anotherLikeIcon from "../Images/setLike.png"
+import pdfIcon from "../Images/send-folder.png"
+import audioIcon from "../Images/audio.png"
 import { useSelector } from 'react-redux'
-// import { getImageUrl } from '../../utils/util'
 
 export default function Post({post}) {
     const userDetails = useSelector((state)=>state.user);
@@ -98,7 +99,20 @@ export default function Post({post}) {
                 {post.image !== ''?
                 <img src={`${post.image}`} className='PostImages' alt='' />: post.video !== '' ? <video className='PostImages' width="500" height="500" controls >
                     <source src={`${post.video}`} type="video/mp4"/>
-                </video> : '' }
+                </video> : post.pdf !== '' ? (
+                        <div>
+                            <img src={pdfIcon} className="PostImages" alt="PDF icon" />
+                            <a href={post.pdf} target="_blank" rel="noreferrer">View PDF</a>
+                        </div>
+                    ) : post.audio !== '' ? (
+                        <div>
+                            <img src={audioIcon} className="PostImages" alt="Audio icon" />
+                            <audio controls>
+                                <source src={post.audio} type="audio/mpeg" />
+                                Your browser does not support the audio element.
+                            </audio>
+                        </div>
+                    ) : '' }
 
                 <div style={{display:'flex'}}>
                     <div style={{display:'flex', marginLeft:"10px"}}>

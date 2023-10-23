@@ -1,5 +1,6 @@
 .mainContainerForSignup{
     background-color: #f0f2f5;
+    /* background-color: black; */
     height: 100vh;
 }
 
@@ -26,6 +27,7 @@
     margin-top: 10px;
     text-align: start;
     margin-left: 30%;
+    /* color: white; */
 }
 
 .inputText{
@@ -39,7 +41,7 @@
 }
 
 .btnforsignup{
-    margin-left: 2%;
+    margin-left: 5%;
     margin-top: 10px;
     border-radius: 10px;
     padding-left: 180px;
@@ -47,8 +49,4 @@
     padding-top: 5px;
     padding-bottom: 5px;
     cursor: pointer;
-}
-
-.part{
-    color: rgb(167, 127, 127);
 }

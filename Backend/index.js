@@ -5,6 +5,7 @@ const dotenv = require("dotenv")
 const userRouter = require("./router/user")
 const postRouter = require("./router/post")
 const cors = require("cors");
+const socket = require('socket.io');
 dotenv.config();
 
 mongoose.connect(process.env.MONGODB).then(()=>
@@ -19,6 +20,28 @@ app.use(express.json());
 app.use("/api/user", userRouter)
 app.use("/api/post", postRouter)
 
-app.listen(5000, ()=>{
+const server = app.listen(5000, ()=>{
     console.log("Server is running");
+})
+
+const io = socket(server , {
+    cors:{
+        origin:'http://localhost:3000',
+        credentials:true
+    }
+})
+
+global.onlineUsers = new Map();
+io.on("connection" , (socket)=>{
+    global.chatsocket = socket;
+    socket.on("addUser" , (id)=>{
+        onlineUsers.set(id , socket.id);
+    })
+
+    socket.on("send-msg" , (data)=>{
+        const sendUserSocket = onlineUsers.get(data.to);
+        if(sendUserSocket){
+            socket.to(sendUserSocket).emit("msg-recieve" , data.message)
+        }
+    })
 })

@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
 import "./signup.css"
 import { signup } from '../../Component/ReduxContainer/apiCall';
+import bgvideo from "../../Component/Images/bg.mp4"
 import app from "../../firebase";
 import { useNavigate } from 'react-router-dom';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -18,13 +19,40 @@ export default function Signup() {
   const [password , setpassword] = useState('');
   const [file , setfile] = useState(null);
   // console.log(user.user.Status);
+  const [errorText, setErrorText] = useState(''); // To display error messages
+
+  const isEmailValid = (email) => {
+    // Email validation regular expression
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    return emailRegex.test(email);
+  }
+
+  const isPhoneNumberValid = (phonenumber) => {
+    // Phone number validation for 10 digits
+    const phoneRegex = /^\d{10}$/;
+    return phoneRegex.test(phonenumber);
+  }
 
   const userDetails = user.user;
   const navigator = useNavigate();
 
   const handleClick = (e)=>{
     e.preventDefault();
-    const fileName = new Date().getTime() + file?.name;
+
+    setErrorText(''); // Clear any previous error messages
+
+    if (!username || username.length <= 5) {
+      setErrorText('Username should be more than 5 characters.');
+    } else if (!isEmailValid(email)) {
+      setErrorText('Please enter a valid email address.');
+    } else if (!isPhoneNumberValid(phonenumber)) {
+      setErrorText('Please enter a valid 10-digit phone number.');
+    } else if (password.length < 6) {
+      setErrorText('Password should be at least 6 characters long.');
+    } else if (!file) {
+      setErrorText('Please select a file.');
+    } else {
+      const fileName = new Date().getTime() + file?.name;
     const storage = getStorage(app);
     const StorageRef = ref(storage , fileName);
     
@@ -55,6 +83,9 @@ export default function Signup() {
       })
     });
   }
+  }
+    
+
 
   console.log(userDetails?.Status)
   if(userDetails?.Status==='Pending'){
@@ -76,6 +107,8 @@ export default function Signup() {
             <input type="text" placeholder='Phonenumber' onChange={(e)=> setphonenumber(e.target.value)} className='inputText'/>
             <input type="email" name='' id='email' placeholder='email' onChange={(e)=> setEmail(e.target.value)} className='inputText'/>
             <input type="password" placeholder='******' name='' onChange={(e)=> setpassword(e.target.value)} id='password' className='inputText'/>
+            {errorText && <p className='errorText'>{errorText}</p>}
+          {error && <p className='errorText'>{error}</p>}
             <button className='btnforsignup' onClick={handleClick}>Signup</button>
             <Link to={"/login"}>
                 <p style={{textAlign:'start', marginLeft:"30.6%"}}>Already have an account?</p>

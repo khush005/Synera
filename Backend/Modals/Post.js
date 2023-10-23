@@ -16,6 +16,12 @@ const PostSchema = new mongoose.Schema({
     video: {
         type: String
     },
+    pdf: {
+        type: String
+    },
+    audio: {
+        type: String
+    },
     like:{
         type: Array,
     },

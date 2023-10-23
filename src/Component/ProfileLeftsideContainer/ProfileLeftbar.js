@@ -15,7 +15,7 @@ export default function ProfileLeftbar() {
     const [Follow, setUnFollow] = useState([user.other.Following.includes(id) ? "Unfollow" : "Follow"]);
     // console.log(user);
 
-    const accessToken = user.accessToken;
+    const accessToken = user?.accessToken;
     console.log(accessToken);
     let username = user?.other?.username;
     

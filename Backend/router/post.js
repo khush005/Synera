@@ -1,14 +1,15 @@
 const router = require('express').Router()
 const Post = require("../Modals/Post")
 const User = require("../Modals/User")
+const Message = require("../Modals/Message")
 const { verifyToken } = require("./verifytoken")
 
 // CREATE POST
 router.post("/user/post", verifyToken, async(req, res)=>{
     try {
-        let { title, image, video } = req.body;
+        let { title, image, video, pdf, audio } = req.body;
         let newpost = new Post({
-            title, image, video, user:req.user.id
+            title, image, video, pdf, audio, user:req.user.id
         })
         const post = await newpost.save()
         res.status(200).json(post)
@@ -179,6 +180,46 @@ router.get("/followers/:id" , async(req , res)=>{
           res.status(200).json(followersList);
     } catch (error) {
          return res.status(500).json("Internal server error")
+    }
+})
+
+// CREATE MESSAGE 
+router.post("/msg" , verifyToken , async(req,res)=>{
+    try {
+        const { from , to, message} = req.body;
+        const newmessage = await Message.create({
+            message:message,
+            Chatusers:[from,to],
+            Sender:from
+        })
+        return res.status(200).json(newmessage);
+    } catch (error) {
+        return res.status(500).json("Internal server error")
+    }
+})
+
+// GET MESSAGE 
+router.get("/get/chat/msg/:user1Id/:user2Id" , async(req,res)=>{
+   try {
+   const from = req.params.user1Id;
+   const to = req.params.user2Id;
+
+   const newmessage = await Message.find({
+    Chatusers:{
+        $all:[from,to],
+    }
+   }).sort({updateOne:1});
+
+   const allmessage = newmessage.map((msg)=>{
+    return{
+        myself:msg.Sender.toString() === from,
+        message : msg.message
+    }
+   })
+   return res.status(200).json(allmessage);
+}
+    catch(error) {
+        return res.status(500).json("Internal server error")
     }
 })
 

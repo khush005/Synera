@@ -56,20 +56,22 @@ router.post("/create/user",
 
             await user.save();
             const transport = nodemailer.createTransport({
-                host: "sandbox.smtp.mailtrap.io",
-                port: 2525,
+                service: 'gmail',
+                host: "smtp.gmail.com",
+                // port: 2525,
+                secure: false,
                 auth: {
-                  user: process.env.USER,
-                  pass: process.env.PASS
+                    user: process.env.EMAIL_TEST,
+                    pass: process.env.EMAIL_TEST_APP_PSWD
                 }
               });
 
               transport.sendMail({
                 // from: "socialmedia@gmail.com",
-                from: "khushboomakhija053@gmail.com",
+                from:process.env.EMAIL_TEST,
                 to: user.email,
                 subject: "Verify your email using OTP",
-                html: `<h1>Your OTP CODE ${OTP} </h1>`
+                html: `<h1>Mail From SYNERA Your OTP CODE ${OTP} </h1>`
               })
             res.status(200).json({Status:"Pending" , msg:"Please check your email" , user:user._id});            
         // } 
@@ -104,18 +106,20 @@ router.post("/verify/email" , async(req , res)=>{
     } , JWTSEC);
     const {password , ...other} = mainuser._doc;
     const transport = nodemailer.createTransport({
-        host: "smtp.mailtrap.io",
-        port: 2525,
+        service: "gmail",
+        host: "smtp.gmail.com",
+        // port: 2525,
+        secure: false,
         auth: {
-          user: process.env.USER,
-          pass: process.env.PASS
+          user: process.env.EMAIL_TEST,
+          pass: process.env.EMAIL_TEST_APP_PSWD
         }
       });
       transport.sendMail({
-        from:"khushboomakhija053@gmail.com",
+        from:process.env.EMAIL_TEST,
         to:mainuser.email,
         subject:"Successfully verify your email",
-        html:`Now you can login in social app`
+        html:`<h1>MAIL FROM SYNERA Successfully Verified</h1> Now you can login in social app`
       })
       return res.status(200).json({other , accessToken})
 

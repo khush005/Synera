@@ -3,6 +3,7 @@ import Home from "./Pages/Home/Home"
 import Profile from './Pages/Profile/Profile';
 import Login from './Pages/Login/Login';
 import Signup from './Pages/Register/Signup';
+import Chat from './Pages/Chat/Chat'
 import { 
   BrowserRouter, 
   Routes,
@@ -34,6 +35,7 @@ function App() {
           <Route path='/verify/email' element={ user?.Status === 'Pending' ? <Verifyemail/> : user?.other?.verified === true ? <Navigate to={"/"} replace={true}/> : <Login/> }></Route>
           <Route path='/forgot/password' element={ <Forgotpassword/> }></Route>
           <Route path='/reset/password' element={ <Resetpassword/> }></Route>
+          <Route path = "/chat" element={<Chat/>}></Route>
         </Routes>
       </BrowserRouter>
     </div>
