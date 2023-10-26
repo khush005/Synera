@@ -5,7 +5,8 @@
 .NotificationsContainer {
     width: 18pc;
     height: 60vh;
-    background-color: white;
+    /* background-color: white; */
+    background-color: #33393d;
     margin-top: 20px;
     border-radius: 10px;
     overflow: hidden;

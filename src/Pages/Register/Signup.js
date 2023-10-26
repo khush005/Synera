@@ -3,10 +3,10 @@ import {Link} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
 import "./signup.css"
 import { signup } from '../../Component/ReduxContainer/apiCall';
-import bgvideo from "../../Component/Images/bg.mp4"
 import app from "../../firebase";
 import { useNavigate } from 'react-router-dom';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import logo from "../../Component/Images/syneraa.png"
 
 export default function Signup() {
   const dispatch = useDispatch();
@@ -98,11 +98,12 @@ export default function Signup() {
         <div style={{flex:1, marginLeft:150, marginBottom:"170px"}}>
             <p className='logoText'>Syn<span className='part'>era</span></p>
             {/* <p className='introText'>Connecting hearts, Creating Bonds</p> */}
-            <p className='introText'>Connect with your <span className='part'>Friends</span></p>
+            {/* <p className='introText'>Connect with your <span className='part'>Friends</span></p> */}
+            <p className='introText'>Connecting Hearts🤍... <br></br><span className='part'>Creating Bonds🤝...</span></p>
         </div>
-        <div style={{flex:3}}>
+        <div style={{flex:3, color:"white"}}>
             <p className='createAccountText'>Create new account</p>
-            <input type="file" name='file' id='file' onChange={(e)=> setfile(e.target.files[0])} />
+            <input type="file" name='file' id='file' onChange={(e)=> setfile(e.target.files[0])} style={{color:"white"}} />
             <input type="text" placeholder='Username' onChange={(e)=> setusername(e.target.value)}  className='inputText' />
             <input type="text" placeholder='Phonenumber' onChange={(e)=> setphonenumber(e.target.value)} className='inputText'/>
             <input type="email" name='' id='email' placeholder='email' onChange={(e)=> setEmail(e.target.value)} className='inputText'/>
@@ -111,7 +112,7 @@ export default function Signup() {
           {error && <p className='errorText'>{error}</p>}
             <button className='btnforsignup' onClick={handleClick}>Signup</button>
             <Link to={"/login"}>
-                <p style={{textAlign:'start', marginLeft:"30.6%"}}>Already have an account?</p>
+                <p style={{textAlign:'start', marginLeft:"30.6%", color:"white"}}>Already have an account?</p>
             </Link>
         </div>
       </div>

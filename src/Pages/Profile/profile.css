@@ -1,5 +1,7 @@
 .ProfileContainer{
-    background-color: rgb(235, 238, 242);
+    /* background-color: rgb(235, 238, 242); */
+    background: url("https://images.pexels.com/photos/13922575/pexels-photo-13922575.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+
 }
 
 .subProfileContainer {

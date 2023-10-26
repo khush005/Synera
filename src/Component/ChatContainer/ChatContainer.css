@@ -37,9 +37,8 @@
 .msgSenderContainer{
     display: flex;
     width: 70pc;
-
-    background-color: aliceblue;
-    margin-top: 20px;
+    background-color: rgb(0,0,0);
+    margin-top: 80px;
     padding: 5px;
     margin-left: 30px;
     border-radius: 10px;
@@ -56,17 +55,17 @@
 }
 
 .msg {
-    display:"flex" ;
-    align-items:"center" ;
-    margin-left:"30px";
-    margin-top:"10px" ;
-    background-color:"rgb(241 243 241)";
-    width:"40%" ;
-    padding:"3px" ;
-    border-radius:"10px"
+    display:flex ;
+    align-items:center ;
+    margin-left:30px;
+    background-color:rgb(241 243 241);
+    padding:3px;
+    border-radius:10px;
+    width:40%;
+    margin-top:10px ;
 }
 
 .msgTxt {
-    text-align:"start";
-    margin-left:"10px";
+    text-align:start;
+    margin-left:10px;
 }

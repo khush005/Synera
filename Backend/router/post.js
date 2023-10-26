@@ -154,7 +154,8 @@ router.get("/following/:id" , async(req , res)=>{
                 followingList.push(others);
           })
 
-          res.status(200).json(followingList);
+        res.status(200).json(followingList);
+        // res.status(200).json({data: followingList});
     } catch (error) {
          return res.status(500).json("Internal server error")
     }
@@ -208,7 +209,7 @@ router.get("/get/chat/msg/:user1Id/:user2Id" , async(req,res)=>{
     Chatusers:{
         $all:[from,to],
     }
-   }).sort({updateOne:1});
+   }).sort({updatedAt: 1});
 
    const allmessage = newmessage.map((msg)=>{
     return{
@@ -217,7 +218,7 @@ router.get("/get/chat/msg/:user1Id/:user2Id" , async(req,res)=>{
     }
    })
    return res.status(200).json(allmessage);
-}
+    }
     catch(error) {
         return res.status(500).json("Internal server error")
     }

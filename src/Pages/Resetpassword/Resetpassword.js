@@ -1,6 +1,7 @@
 // import { async } from '@firebase/util';
 import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom'
+import "./Resetpassword.css"
 
 export default function Resetpassword() {
   const location = useLocation();
@@ -15,6 +16,8 @@ export default function Resetpassword() {
     })
   };
   return (
+    <div className='mainContainerforreset'>
+
     <div style={{width:"100vw" , height:"100vh", display:'flex' , alignItems:"center" , justifyContent:"center"}}>
             <div style={{width:"25%" , padding:"20px" , margin:"auto" , borderRadius:"10px" , backgroundColor:"black"}}>
                 <p style={{color:"white"}}>Enter Your New Password</p>
@@ -25,5 +28,6 @@ export default function Resetpassword() {
                 </form>
             </div>
         </div>
+    </div>
   )
 }

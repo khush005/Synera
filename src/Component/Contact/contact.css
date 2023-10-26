@@ -2,7 +2,7 @@
     flex: 0.7;
     background-color: white;
     display: flex;
-   /* height: 100vh;*/
+   /* height: 100vh; */
 
 }
 
@@ -22,7 +22,6 @@
     height: 45px;
     border-radius: 50%;
     object-fit: cover;
-
 }
 
 .userContainer{

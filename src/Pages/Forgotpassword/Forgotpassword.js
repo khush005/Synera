@@ -1,5 +1,6 @@
 // import { async } from '@firebase/util';
 import React, { useState } from 'react'
+import "./Forgotpassword.css"
 
 export default function Forgotpassword() {
   const [email , setEmail] = useState('');
@@ -14,6 +15,8 @@ export default function Forgotpassword() {
   }
   
   return (
+    <div className='mainContainerforForgot'>
+
     <div style={{width:"100vw" , height:"100vh", display:'flex' , alignItems:"center" , justifyContent:"center"}}>
             <div style={{width:"25%" , padding:"20px" , margin:"auto" , borderRadius:"10px" , backgroundColor:"black"}}>
                 <p style={{color:"white"}}>Enter your Email</p>
@@ -24,5 +27,6 @@ export default function Forgotpassword() {
                 </form>
             </div>
         </div>
+    </div>
   )
 }

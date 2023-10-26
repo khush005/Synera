@@ -9,7 +9,7 @@ export default function Chat() {
         <Navbar/>
         <div style={{display:"flex"}}>    
             <Contact/>
-            <ChatContainer/>
+            {/* <ChatContainer/> */}
         </div>
     </div>
   )

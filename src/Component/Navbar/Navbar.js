@@ -33,7 +33,9 @@ export default function Navbar() {
       </div>
       <div className='IconsContainer'>
         <img src={`${Notification}`} className='Icons' alt="" />
-        <img src={`${Message}`} className='Icons' alt="" />
+        <Link to={`/chat`}>
+          <img src={`${Message}`} className='Icons' alt="" />
+        </Link>
 
         <Link to={`/Profile/${id}`}>
         <div style={{display: 'flex', alignItems: 'center'}}>

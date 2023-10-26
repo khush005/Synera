@@ -1,6 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&display=swap');
+
+
 .mainContainerForSignup{
-    background-color: #f0f2f5;
+    /* background-color: #f0f2f5; */
     /* background-color: black; */
+    background: url("https://images.pexels.com/photos/9786314/pexels-photo-9786314.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
     height: 100vh;
 }
 
@@ -14,12 +18,15 @@
     font-size: 40px;
     text-align: start;
     margin-top: 0px;
+    color: white;
 }
 
 .introText{
-    font-size: 20px;
+    font-size: 25px;
     text-align: start;
     margin-top: -40px;
+    color: white;
+    font-family: 'Playfair Display', serif;
 }
 
 .createAccountText{
@@ -27,6 +34,7 @@
     margin-top: 10px;
     text-align: start;
     margin-left: 30%;
+    color: white;
 }
 
 .inputText{

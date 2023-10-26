@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link , useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { VerifyEmail } from '../../Component/ReduxContainer/apiCall';
+import "./Verifyemail.css"
 
 export default function Verifyemail() {
   const dispatch = useDispatch();
@@ -20,6 +21,8 @@ export default function Verifyemail() {
   }
 
   return (
+    <div className='mainContainerforOtp'>
+
     <div style={{width:"100vw" , height:"100vh", display:'flex' , alignItems:"center" , justifyContent:"center"}}>
       <div style={{width:"25%" , padding:"20px" , margin:"auto" , borderRadius:"10px" , backgroundColor:"black"}}>
                 <p>Aavelance Send Email</p>
@@ -32,6 +35,7 @@ export default function Verifyemail() {
          
                 </form>
             </div>
+    </div>
     </div>
   )
 }
