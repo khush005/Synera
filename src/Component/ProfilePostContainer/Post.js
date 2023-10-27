@@ -82,12 +82,49 @@ export default function Post({detail}) {
                         <p style={{fontSize:'11px', textAlign:'start', marginLeft:5, marginTop:-13, color:'#aaa'}}>Following by Khushboo</p>
                     </div>
                     {/* <p style={{marginLeft:'5px'}}>Khushboo</p> */}
-                    <img src={`${MoreOption}`} className='moreicons' alt="" />
+                    <img src={`${MoreOption}`} style={{marginLeft:"340px"}} className='moreicons' alt="" />
                 </div>
 
                 
                 <p style={{textAlign:'start', width:'90%', marginLeft:10, marginTop:0}}>{detail.title}</p>
-                <img src={`${detail.image}`} className='PostImages' alt="" onError={() => console.log('Image failed to load')}/>
+                {/* <img src={`${detail.image}`} className='PostImages' alt="" onError={() => console.log('Image failed to load')}/> */}
+                {detail.image && <img src={`${detail.image}`} className='PostImages' alt="" onError={() => console.log('Image failed to load')} />}
+
+                {/* Display PDF if available */}
+                {detail.pdf && (
+                  <div>
+                    <iframe src={detail.pdf} width="500" height="500" title="PDF document" />
+                  </div>
+                )}
+
+                {/* Display audio if available */}
+                {detail.audio && (
+                  <div>
+                    <audio controls>
+                      <source src={detail.audio} type="audio/mpeg" />
+                      Your browser does not support the audio element.
+                    </audio>
+                  </div>
+                )}
+
+                {detail.word && (
+                  <div>
+                    <a href={detail.wordToPdfUrl} target="_blank" rel="noreferrer">
+                      View Word as PDF
+                    </a>
+                  </div>
+                )}
+
+                {/* Display video if available */}
+                {detail.video && (
+                  <div>
+                    <video controls width="500" height="500">
+                      <source src={detail.video} type="video/mp4" />
+                      Your browser does not support the video element.
+                    </video>
+                  </div>
+                )}
+
                
                 <div style={{display:'flex'}}>
                     <div style={{display:'flex', marginLeft:"10px"}}>
@@ -104,7 +141,7 @@ export default function Post({detail}) {
                     </div>
 
                     <div style={{display:'flex', alignItems:'center', marginLeft:200, cursor:'pointer'}}>
-                        <img src={`${ShareIcon}`} className='iconsforPost' alt="" />
+                        <img src={`${ShareIcon}`}  className='iconsforPost' alt="" />
                         <p style={{marginLeft:'6px'}}>Share</p>
                     </div>
                 </div>

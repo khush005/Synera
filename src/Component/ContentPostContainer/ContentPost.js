@@ -213,7 +213,7 @@ export default function ContentPost() {
           {pdfPre !== null ? (
             // Display the selected PDF file
             <div>
-              <img src={pdfIcon} style={{ width: "32px" }} alt="PDF icon" />
+              <img src={pdfIcon} style={{ width: "32px"}} alt="PDF icon" />
               {pdfPre}
             </div>
           ) : (

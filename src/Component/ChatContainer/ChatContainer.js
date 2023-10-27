@@ -109,7 +109,7 @@ export default function ChatContainer({currentChatUser}) {
             <img src={`${currentChatUser?.profile}`} className='chatuserprofile' alt="" />
             <p className='msgTxt'>{item?.message}</p>
           </div> : 
-          <div style={{display:"flex", alignItems:"center",marginLeft:"30px", backgroundColor:"rgb(241,243,241)", marginTop:"10px", padding:"3px", borderRadius:"10px", width:"40%", marginTop:"10px"}}>
+          <div style={{display:"flex", alignItems:"center",marginLeft:"600px", backgroundColor:"rgb(241,243,241)", marginTop:"10px", padding:"3px", borderRadius:"10px", width:"40%", marginTop:"10px"}}>
             <p style={{textAlign:"start", marginLeft:"50px"}}>{item?.message}</p>
           </div>
           }

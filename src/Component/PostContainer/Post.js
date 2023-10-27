@@ -91,28 +91,46 @@ export default function Post({post}) {
                         <p style={{fontSize:'11px', textAlign:'start', marginLeft:5, marginTop:-13, color:'#aaa'}}>Following by Khushboo</p>
                     </div>
                     {/* <p style={{marginLeft:'5px'}}>Khushboo</p> */}
-                    <img src={`${MoreOption}`} className='moreicons' alt="" />
+                    <img src={`${MoreOption}`} style={{marginLeft:"340px"}} className='moreicons' alt="" />
                 </div>
 
                 
                 <p style={{textAlign:'start', width:'90%', marginLeft:10, marginTop:0}}>{post.title}</p>
+                
                 {post.image !== ''?
                 <img src={`${post.image}`} className='PostImages' alt='' />: post.video !== '' ? <video className='PostImages' width="500" height="500" controls >
                     <source src={`${post.video}`} type="video/mp4"/>
                 </video> : post.pdf !== '' ? (
                         <div>
                             <img src={pdfIcon} className="PostImages" alt="PDF icon" />
-                            <a href={post.pdf} target="_blank" rel="noreferrer">View PDF</a>
+                            <a href={post.pdf} target="_blank" rel="noreferrer" style={{marginLeft:"20px"}}>View PDF</a>
+                            <iframe src={post.pdf} width="500" height="500" title="PDF document" />
                         </div>
-                    ) : post.audio !== '' ? (
+                    ) 
+                    // : post.ppt !== '' ? (
+                    //     <div>
+                    //       {/* Display PPT here (you can use a third-party library or viewer) */}
+                    //       <a href={post.ppt} target="_blank" rel="noreferrer" style={{marginLeft:"20px"}}>View PPT</a>
+                    //         <iframe src={post.ppt} width="500" height="500" title="PDF document" />
+                    //     </div>
+                    //   ) : post.word !== '' ? (
+                    //     <div>
+                    //       {/* Display Word document here (you can use the converted HTML or a viewer) */}
+                    //       <a href={post.word} target="_blank" rel="noreferrer" style={{marginLeft:"20px"}}>View Word</a>
+                    //         <iframe src={post.word} width="500" height="500" title="PDF document" />
+                    //     </div>
+                    //   ) 
+                      : post.audio !== '' ? (
                         <div>
-                            <img src={audioIcon} className="PostImages" alt="Audio icon" />
+                            {/* <img src={audioIcon} className="PostImages" alt="Audio icon" /> */}
                             <audio controls>
                                 <source src={post.audio} type="audio/mpeg" />
                                 Your browser does not support the audio element.
                             </audio>
                         </div>
                     ) : '' }
+
+                    
 
                 <div style={{display:'flex'}}>
                     <div style={{display:'flex', marginLeft:"10px"}}>

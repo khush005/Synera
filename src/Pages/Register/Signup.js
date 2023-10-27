@@ -20,6 +20,8 @@ export default function Signup() {
   const [file , setfile] = useState(null);
   // console.log(user.user.Status);
   const [errorText, setErrorText] = useState(''); // To display error messages
+  
+  
 
   const isEmailValid = (email) => {
     // Email validation regular expression
@@ -41,6 +43,8 @@ export default function Signup() {
 
     setErrorText(''); // Clear any previous error messages
 
+    const usernameRegex = /^\d{3}[A-Za-z0-9]*$/;
+
     if (!username || username.length <= 5) {
       setErrorText('Username should be more than 5 characters.');
     } else if (!isEmailValid(email)) {
@@ -51,6 +55,8 @@ export default function Signup() {
       setErrorText('Password should be at least 6 characters long.');
     } else if (!file) {
       setErrorText('Please select a file.');
+    } else if (!usernameRegex.test(username)) {
+      setErrorText('Username should start with 3 digits and only contain alphanumeric characters.');
     } else {
       const fileName = new Date().getTime() + file?.name;
     const storage = getStorage(app);

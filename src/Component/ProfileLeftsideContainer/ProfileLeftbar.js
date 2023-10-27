@@ -90,7 +90,7 @@ export default function ProfileLeftbar() {
                 <h5 style={{color:'black', marginLeft:10, fontSize:'14px', marginRight:30, marginTop:30, textAlign:'start' }}>User Bio</h5>
                 <p style={{color:'black', fontSize:'12px', marginTop:-20, textAlign:'start', marginLeft:'10px'}}>I would rather be despised of who I am, rather than loved by who I am not.</p>
             </div>
-            {user.other._id !== id ? <div onClick={handleFollow}><button style={{width:"100%" , paddingTop:7 , paddingBottom:7 , border:"none" , backgroundColor:"green" , color:"white"}}>{Follow}</button></div> : <div><button style={{width:"100%" , paddingTop:7 , paddingBottom:7 , border:"none" , backgroundColor:"green" , color:"white"}}>Edit Bio</button></div> }
+            {user.other._id !== id ? <div onClick={handleFollow}><button style={{width:"100%" , paddingTop:7 , paddingBottom:7 , border:"none" , backgroundColor:"green" , color:"white"}}>{Follow}</button></div> : <div><button style={{width:"100%" , paddingTop:7 , paddingBottom:7 , border:"none" , backgroundColor:"green" , color:"white", marginLeft:"7px"}}>Edit Bio</button></div> }
         </div>
 
 
