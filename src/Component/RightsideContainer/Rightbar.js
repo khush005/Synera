@@ -30,7 +30,7 @@ console.log(users);
   return (
     <div className='Rightbar'>
         <div className="Rightcontainer">
-            {/* <div className='adsContainer'>
+            <div className='adsContainer'>
                 <img src={`${ads}`} className='adsimg' alt="" />
                 <div>
                     <p style={{textAlign:'start', marginLeft:'10px', marginTop:-20}}>CodeDemy</p>
@@ -43,9 +43,9 @@ console.log(users);
                     <p style={{textAlign:'start', marginLeft:'10px', marginTop:-20}}>CodeDemy</p>
                     <p style={{textAlign:'start', marginLeft:'10px', fontSize:"12px", marginTop:"-16px"}}>Buy codemy course</p>
                 </div>
-            </div> */}
+            </div>
 
-            <div>
+            {/* <div>
       <input
         type="text"
         placeholder="Poll question"
@@ -63,7 +63,7 @@ console.log(users);
       ))}
       <button onClick={addChoice}>Add Choice</button>
       <button onClick={handleCreatePoll}>Create Poll</button>
-    </div>
+    </div> */}
             
         </div>
 
