@@ -54,7 +54,7 @@ export default function Contact() {
         {users?.map((item)=>(
         <div key={item._id}>
           {item?._id !== id ? (
-        <div className='userContainer' onClick={() => handleUser(item)}>
+        <div className='userContainer' style={{cursor:"pointer"}} onClick={() => handleUser(item)}>
           <img src={`${item.profile}`} className='chatuserimage' alt="" />
           <div style={{marginLeft:"10px"}}>
             <p style={{color:"black", textAlign:"start", marginTop:"5px", fontSize:"15px"}}>{item.username}</p>

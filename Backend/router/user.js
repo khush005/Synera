@@ -12,7 +12,6 @@ const nodemailer = require('nodemailer');
 const ResetToken = require("../Modals/ResetToken");
 const crypto = require("crypto");
 
-
 // CREATE USER
 router.post("/create/user", 
     body('email').isEmail(), 

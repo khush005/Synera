@@ -5,6 +5,7 @@ import searchIcon from "../Images/search.png"
 import Notification from "../Images/bell.png" 
 import Message from "../Images/message.png"
 import Profile from "../Images/Profile.png"
+import FileIcon from "../Images/fileTransfer.png"
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../ReduxContainer/userReducer';
 
@@ -36,6 +37,8 @@ export default function Navbar() {
         <Link to={`/chat`}>
           <img src={`${Message}`} className='Icons' alt="" />
         </Link>
+
+        <img src={`${FileIcon}`} className='Icons' alt="" />
 
         <Link to={`/Profile/${id}`}>
         <div style={{display: 'flex', alignItems: 'center'}}>

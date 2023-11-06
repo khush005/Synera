@@ -55,6 +55,9 @@ export default function Login() {
           <Link to={"/signup"}>
             <p style={{ textAlign: 'start', marginLeft: "30.6%", color:"white" }}>Create a new account</p>
           </Link>
+          <Link to={"/p2p"}>
+          <p style={{ textAlign: 'start', marginLeft: "30.6%", color:"white" }}>File Transfer</p>
+          </Link>
         </div>
       </div>
     </div>

@@ -102,7 +102,7 @@ export default function Post({post}) {
                     <source src={`${post.video}`} type="video/mp4"/>
                 </video> : post.pdf !== '' ? (
                         <div>
-                            <img src={pdfIcon} className="PostImages" alt="PDF icon" />
+                            {/* <img src={pdfIcon} className="PostImages" alt="PDF icon" /> */}
                             <a href={post.pdf} target="_blank" rel="noreferrer" style={{marginLeft:"20px"}}>View PDF</a>
                             <iframe src={post.pdf} width="500" height="500" title="PDF document" />
                         </div>

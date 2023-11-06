@@ -9,6 +9,7 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/
 import logo from "../../Component/Images/syneraa.png"
 
 export default function Signup() {
+  
   const dispatch = useDispatch();
   const {isFetching  , error} = useSelector((state)=>state.user);
   const user = useSelector((state)=>state.user);
@@ -98,6 +99,7 @@ export default function Signup() {
     navigator("/verify/email");
   }
 
+  
   return (
     <div className='mainContainerForSignup'>
       <div className="subMainContainer">
