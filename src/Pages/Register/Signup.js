@@ -90,14 +90,12 @@ export default function Signup() {
       })
     });
   }
-  }
-    
+}
+console.log(userDetails?.Status)
+if(userDetails?.Status==='Pending'){
+  navigator("/verify/email");
+}
 
-
-  console.log(userDetails?.Status)
-  if(userDetails?.Status==='Pending'){
-    navigator("/verify/email");
-  }
 
   
   return (
