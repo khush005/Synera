@@ -17,15 +17,17 @@ router.post("/create/user",
     body('email').isEmail(), 
     body('password').isLength({min:6}),
     body('username').isLength({min:5}),
-    body('phonenumber').isLength({min:10}),
+    body('phonenumber').isNumeric().isLength({min:10}),
+    body('userType').isString(),
     async(req,res) => {
         const error = validationResult(req);
         if(!error.isEmpty()){
             // return res.status(400).json(error)
-            return res.status(400).json("Some error occured")
+            // return res.status(400).json("Some error occured")
+            return res.status(400).json({ errors: errors.array() });
         }
 
-        // try {
+        try {
             let user = await User.findOne({email:req.body.email})
             if(user){
                 return res.status(200).json("Please login with correct password")
@@ -39,11 +41,13 @@ router.post("/create/user",
                 email:req.body.email,
                 password:secpass,
                 profile:req.body.profile,
-                phonenumber:req.body.phonenumber
+                phonenumber:req.body.phonenumber,
+                userType:req.body.userType
             })
             const accessToken = jwt.sign({
                 id:user._id,
-                username:user.username
+                username:user.username,
+                userType:user.userType
             }, JWTSEC)
 
             const OTP = generateOTP();
@@ -73,12 +77,43 @@ router.post("/create/user",
                 html: `<h1>Mail From SYNERA Your OTP CODE ${OTP} </h1>`
               })
             res.status(200).json({Status:"Pending" , msg:"Please check your email" , user:user._id});            
-        // } 
-        // catch (error) {
-            // return res.status(400).json("Internal error occured")
-        // }
+        } 
+        catch (error) {
+            return res.status(400).json("Internal error occured")
+        }
     }
 )
+
+
+// GET ALL USER
+router.get("/getAllUser", async(req, res) => {
+    try {
+        const alluser = await User.find({});
+        res.send({ Status: "OK", data: alluser })
+    } catch (error) {
+        console.log(error);
+    }
+})
+
+
+
+//admin delete
+router.post("/deleteUser", async (req, res) => {
+    console.log(req.body)
+    const { userid } = req.body;
+    console.log(userid)
+    try {
+     const deleteAdminuser = await User.deleteOne({ _id: userid });
+     if(!deleteAdminuser) {
+        return res.status(404).send({ status: 'Error', error: 'User Not Found' });
+     }
+    console.log(deleteAdminuser);
+      res.send({ status: "Ok", data: "Deleted" });
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
 
 
 // VERIFY EMAIL
@@ -149,7 +184,8 @@ router.post('/login',
     
             const accessToken = jwt.sign({
                 id:user._id,
-                username:user.username
+                username:user.username,
+                userType:user.userType
             }, JWTSEC)
 
             const { password, ...other } = user._doc

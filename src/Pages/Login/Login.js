@@ -34,7 +34,7 @@ export default function Login() {
 
   return (
     <div className='mainContainerForSignup'>
-      <div className="subMainContainer">
+      <div className="subMainLoginContainer">
         <div style={{ flex: 1, marginLeft: 150, marginBottom: "-300px" }}>
         {/* <div className='left'> */}
           {/* <p className='logoText'>Syn<span className='part'>era</span></p> */}

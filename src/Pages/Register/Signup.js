@@ -19,6 +19,8 @@ export default function Signup() {
   const [username , setusername] = useState('');
   const [password , setpassword] = useState('');
   const [file , setfile] = useState(null);
+  const [userType, setUserType] = useState("");
+  const [secretKey, setSecretKey] = useState("");
   // console.log(user.user.Status);
   const [errorText, setErrorText] = useState(''); // To display error messages
   
@@ -58,7 +60,10 @@ export default function Signup() {
       setErrorText('Please select a file.');
     } else if (!usernameRegex.test(username)) {
       setErrorText('Username should start with 3 digits and only contain alphanumeric characters.');
-    } else {
+    } else if (userType === "Admin" && secretKey !== "KMSA") {
+      setErrorText('Invalid Admin');
+    } 
+    else {
       const fileName = new Date().getTime() + file?.name;
     const storage = getStorage(app);
     const StorageRef = ref(storage , fileName);
@@ -86,19 +91,15 @@ export default function Signup() {
     // Handle successful uploads on complete
     // For instance, get the download URL: https://firebasestorage.googleapis.com/...
     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-      signup(dispatch ,{email , password , username , phonenumber , profile:downloadURL});
+      signup(dispatch ,{email , password , username , phonenumber , profile:downloadURL, userType});
       })
     });
   }
-  }
-    
-
-
+}
   console.log(userDetails?.Status)
   if(userDetails?.Status==='Pending'){
     navigator("/verify/email");
   }
-
   
   return (
     <div className='mainContainerForSignup'>
@@ -111,13 +112,33 @@ export default function Signup() {
         </div>
         <div style={{flex:3, color:"white"}}>
             <p className='createAccountText'>Create new account</p>
+            
+            
+            <div style={{padding: "5px 5px"}}>
+              Register As 
+              <input type="radio" name='UserType' value="User" onChange={(e) => setUserType(e.target.value)} /> User
+              <input type="radio" name='UserType' value="Admin" onChange={(e) => setUserType(e.target.value)} /> Admin
+            </div>
+
+            
+            {userType == "Admin" ? (
+              <div className="mb-3"> 
+                <label>Secret Key</label>
+                <input type="text" className='inputText' placeholder='Secret Key' onChange={(e) => setSecretKey(e.target.value)}/>
+              </div>
+             ) : null}
+            
+            <p className='subcreateaccText'>Upload your College Id</p>
+
             <input type="file" name='file' id='file' onChange={(e)=> setfile(e.target.files[0])} style={{color:"white"}} />
             <input type="text" placeholder='Username' onChange={(e)=> setusername(e.target.value)}  className='inputText' />
             <input type="text" placeholder='Phonenumber' onChange={(e)=> setphonenumber(e.target.value)} className='inputText'/>
             <input type="email" name='' id='email' placeholder='email' onChange={(e)=> setEmail(e.target.value)} className='inputText'/>
             <input type="password" placeholder='******' name='' onChange={(e)=> setpassword(e.target.value)} id='password' className='inputText'/>
+
             {errorText && <p className='errorText'>{errorText}</p>}
           {error && <p className='errorText'>{error}</p>}
+
             <button className='btnforsignup' onClick={handleClick}>Signup</button>
             <Link to={"/login"}>
                 <p style={{textAlign:'start', marginLeft:"30.6%", color:"white"}}>Already have an account?</p>

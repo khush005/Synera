@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux';
 import Resetpassword from './Pages/Resetpassword/Resetpassword';
 import Verifyemail from './Pages/VerifyEmail/Verifyemail'
 import Forgotpassword from './Pages/Forgotpassword/Forgotpassword';
+import AdminHome from "./Pages/Admin/AdminHome"
 // import CreateRoom from '../p2pfiletransfer/client/src/routes/CreateRoom';
 // import Room from '../p2pfiletransfer/client/src/routes/Room';
 // import CreateRoom from './Component/FileTransfer/CreateRoom';
@@ -29,7 +30,21 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={ user?.other?.verified === true ? <Home/> : <Navigate to={"/login"} replace={true} /> }></Route>
+          {/* <Route path='/' element={ user?.other?.verified === true ? <Home/> : <Navigate to={"/login"} replace={true} /> }></Route> */}
+          <Route 
+            path='/' 
+            element={ user?.other?.verified === true ? (
+              user?.other?.userType === "User" ? (
+                <Home/>
+              ) : user?.other?.userType === "Admin" ? (
+                <Navigate to="/adminHome" replace={true} />
+              ) : null
+            ) : (
+              <Navigate to="/login" replace={true} />
+            )
+          }>
+          </Route>
+          <Route path='/adminHome' element={<AdminHome/>} ></Route>
           <Route path='/Profile/:id' element={<Profile/>}></Route>
           <Route path='/login' element={ user?.other?.verified === true ? <Navigate to={"/"} replace={true}/> : <Login/>}></Route>
           <Route path='/signup' element={ <Signup/>}></Route>
