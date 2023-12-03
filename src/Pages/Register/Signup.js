@@ -96,10 +96,19 @@ export default function Signup() {
     });
   }
 }
+<<<<<<< HEAD
   console.log(userDetails?.Status)
   if(userDetails?.Status==='Pending'){
     navigator("/verify/email");
   }
+=======
+console.log(userDetails?.Status)
+if(userDetails?.Status==='Pending'){
+  navigator("/verify/email");
+}
+
+
+>>>>>>> 5e0749484a634468a9a8f162cc2132cce7b47940
   
   return (
     <div className='mainContainerForSignup'>

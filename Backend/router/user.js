@@ -30,7 +30,7 @@ router.post("/create/user",
         try {
             let user = await User.findOne({email:req.body.email})
             if(user){
-                return res.status(200).json("Please login with correct password")
+                return res.status(200).json("User already exists. Please login..")
             } 
 
             const salt = await bcrypt.genSalt(10)
@@ -77,10 +77,18 @@ router.post("/create/user",
                 html: `<h1>Mail From SYNERA Your OTP CODE ${OTP} </h1>`
               })
             res.status(200).json({Status:"Pending" , msg:"Please check your email" , user:user._id});            
+<<<<<<< HEAD
         } 
         catch (error) {
             return res.status(400).json("Internal error occured")
         }
+=======
+        // } 
+        // catch (error) {
+            // return res.status(400).json("Internal error occured")
+            // return res.status(400).json(error)
+        // }
+>>>>>>> 5e0749484a634468a9a8f162cc2132cce7b47940
     }
 )
 
